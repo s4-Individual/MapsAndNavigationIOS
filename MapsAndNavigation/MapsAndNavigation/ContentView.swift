@@ -20,20 +20,32 @@ struct ContentView: View {
     @State private var searchCoordinate = CLLocationCoordinate2D()
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
     @State private var isFollowingUser = true
-
+    
+    @State private var directions: [String] = []
+    @State private var showDirections = false
+    
     
     var body: some View {
+        //        VStack {
+        //            Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: isFollowingUser ? .constant(.follow) : .none, annotationItems: [Annotation(coordinate: searchCoordinate)]) { annotation in
+        //                MapMarker(coordinate: annotation.coordinate)
+        //            }
+        //            .ignoresSafeArea(.all)
+        //            .onAppear{viewModel.checkIfLocationIsEnabled()}
+        //            .onAppear{
+        //                region = $viewModel.region.wrappedValue
+        //            }
+        //            HStack{
+        //                SearchBar(text: $searchText, onSearch: search)
+        //                Button(action: {
+        //                    isFollowingUser = true
+        //
+        //                }){
+        //                    Image(systemName: "location.fill")
+        //                }
+        //            }
+        //        }
         VStack {
-            HStack{
-                SearchBar(text: $searchText, onSearch: search)
-                Button(action: {
-                    isFollowingUser = true
-        
-                }){
-                    Image(systemName: "location")
-                }
-            }
-            
             Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: isFollowingUser ? .constant(.follow) : .none, annotationItems: [Annotation(coordinate: searchCoordinate)]) { annotation in
                 MapMarker(coordinate: annotation.coordinate)
             }
@@ -42,7 +54,38 @@ struct ContentView: View {
             .onAppear{
                 region = $viewModel.region.wrappedValue
             }
-        }
+            
+            HStack{
+                SearchBar(text: $searchText, onSearch: search)
+                Button(action: {
+                    isFollowingUser = true
+                    
+                }){
+                    Image(systemName: "location.fill")
+                }
+            }
+            
+            Button(action: {
+                self.showDirections.toggle()
+            }, label: {
+                Text("Show directions")
+            })
+            .disabled(directions.isEmpty)
+            .padding()
+        }.sheet(isPresented: $showDirections, content: {
+            VStack(spacing: 0) {
+                Text("Directions")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding()
+                
+                Divider().background(Color(UIColor.systemBlue))
+                
+                List(0..<self.directions.count, id: \.self) { i in
+                    Text(self.directions[i]).padding()
+                }
+            }
+        })
     }
     
     private func search() {
