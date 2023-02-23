@@ -15,6 +15,7 @@
 		099EF29C299F7DDA00801CC1 /* MapsAndNavigationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099EF29B299F7DDA00801CC1 /* MapsAndNavigationUITests.swift */; };
 		099EF29E299F7DDA00801CC1 /* MapsAndNavigationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099EF29D299F7DDA00801CC1 /* MapsAndNavigationUITestsLaunchTests.swift */; };
 		099EF2B6299F963700801CC1 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099EF2B5299F963700801CC1 /* ContentViewModel.swift */; };
+		09ED774D29A0017300E40385 /* Searchbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ED774C29A0017300E40385 /* Searchbar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		099EF29D299F7DDA00801CC1 /* MapsAndNavigationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsAndNavigationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		099EF2AA299F7DF300801CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		099EF2B5299F963700801CC1 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		09ED774C29A0017300E40385 /* Searchbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		099EF27F299F7DD700801CC1 /* MapsAndNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				09ED774B29A0015A00E40385 /* Components */,
 				099EF2B4299F961E00801CC1 /* Classes */,
 				099EF2AA299F7DF300801CC1 /* Info.plist */,
 				099EF280299F7DD700801CC1 /* MapsAndNavigationApp.swift */,
@@ -138,6 +141,14 @@
 				099EF2B5299F963700801CC1 /* ContentViewModel.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		09ED774B29A0015A00E40385 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				09ED774C29A0017300E40385 /* Searchbar.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				099EF283299F7DD700801CC1 /* ContentView.swift in Sources */,
+				09ED774D29A0017300E40385 /* Searchbar.swift in Sources */,
 				099EF281299F7DD700801CC1 /* MapsAndNavigationApp.swift in Sources */,
 				099EF2B6299F963700801CC1 /* ContentViewModel.swift in Sources */,
 			);
