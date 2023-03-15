@@ -90,18 +90,33 @@ struct ContentView: View {
     
     private func search() {
         let localSearchRequest = MKLocalSearch.Request()
-        localSearchRequest.naturalLanguageQuery = searchText
-        let localSearch = MKLocalSearch(request: localSearchRequest)
-        localSearch.start { (response, error) in
-            guard let response = response else { return }
-            let mapItem = response.mapItems.first
-            searchCoordinate = mapItem?.placemark.coordinate ?? CLLocationCoordinate2D()
-            region = MKCoordinateRegion(center: searchCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
-            isFollowingUser = false
-        }
+            localSearchRequest.naturalLanguageQuery = searchText
+            let localSearch = MKLocalSearch(request: localSearchRequest)
+            localSearch.start { (response, error) in
+                guard let response = response else { return }
+                let mapItem = response.mapItems.first
+                searchCoordinate = mapItem?.placemark.coordinate ?? CLLocationCoordinate2D()
+                region = MKCoordinateRegion(center: searchCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+                isFollowingUser = false
+                
+                let sourcePlacemark = MKPlacemark(coordinate: self.viewModel.locationManager?.location?.coordinate ?? CLLocationCoordinate2D())
+                let destinationPlacemark = MKPlacemark(coordinate: self.searchCoordinate)
+                let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+                let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+                let directionsRequest = MKDirections.Request()
+                directionsRequest.source = sourceMapItem
+                directionsRequest.destination = destinationMapItem
+                directionsRequest.transportType = .automobile
+                let directions = MKDirections(request: directionsRequest)
+                directions.calculate { response, error in
+                    guard let route = response?.routes.first else {
+                        return
+                    }
+                    self.directions = route.steps.map { $0.instructions }.filter { !$0.isEmpty }
+                    self.showDirections = true
+                }
+            }
     }
-    
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
